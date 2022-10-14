@@ -2,8 +2,8 @@ from time import sleep
 from notification import send_windows_notification, send_telegram_notification
 from ctypes import Structure, windll, c_uint, sizeof, byref
 
-ALLOWED_SITTING_DURATION: int = 10  # 3300
-BREAK_DURATION: int = 5  # 300
+ALLOWED_SITTING_DURATION: int = 3300
+BREAK_DURATION: int = 300
 CURRENT_DURATION: int = 0
 
 FORCE_BREAK: bool = False
