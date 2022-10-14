@@ -55,5 +55,3 @@ while KEEP_RUNNING:
 
     previous_idle_duration = idle_duration
     sleep(1)
-
-print(get_idle_duration())
