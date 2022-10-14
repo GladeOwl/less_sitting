@@ -1,11 +1,12 @@
 from time import sleep
-from notification import send_windows_notification
+from notification import send_windows_notification, send_telegram_notification
 from ctypes import Structure, windll, c_uint, sizeof, byref
 
 ALLOWED_SITTING_DURATION: int = 3300
 BREAK_DURATION: int = 300
 CURRENT_DURATION: int = 0
 
+FORCE_BREAK: bool = False
 KEEP_RUNNING: bool = True
 IDLE: bool = True
 
@@ -37,12 +38,20 @@ while KEEP_RUNNING:
         IDLE = False
         print(f"Activity Detected. We were idle for {previous_idle_duration} seconds")
 
-    if not IDLE and CURRENT_DURATION >= ALLOWED_SITTING_DURATION:
+    if not IDLE and not FORCE_BREAK and CURRENT_DURATION >= ALLOWED_SITTING_DURATION:
+        FORCE_BREAK = True
         print("Duration Exceeded Allowed Sitting Time. Sending Notification.")
         send_windows_notification()
+        send_telegram_notification(
+            "Take a Break. You've been sitting for a quite a while."
+        )
 
     if not IDLE:
         CURRENT_DURATION += 1
+
+    if FORCE_BREAK and IDLE:
+        FORCE_BREAK = False
+        send_telegram_notification("We're good. You may sit again.")
 
     previous_idle_duration = idle_duration
     sleep(1)
