@@ -48,9 +48,7 @@ while KEEP_RUNNING:
     if not IDLE and current_duration >= ALLOWED_SITTING_DURATION:
         if not FORCE_BREAK:
             FORCE_BREAK = True
-            print(
-                f"{now} Duration Exceeded Allowed Sitting Time or Grace Period. Sending Notification."
-            )
+            print(f"{now} Duration Exceeded Allowed Sitting Time or Grace Period.")
             send_windows_notification()
             send_telegram_notification(
                 f"{now} Take a Break. You've been sitting for a quite a while."
