@@ -40,8 +40,9 @@ while KEEP_RUNNING:
         IDLE = False
         print(f"Activity Detected. We were idle for {previous_idle_duration} seconds")
 
-    if not IDLE and not FORCE_BREAK and current_duration >= ALLOWED_SITTING_DURATION:
+    if not IDLE and current_duration >= ALLOWED_SITTING_DURATION:
         if current_grace >= GRACE_PERIOD:
+            print("Grace Period Expired.")
             current_grace = 0
             FORCE_BREAK = False
 
